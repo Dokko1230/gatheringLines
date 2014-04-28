@@ -1,17 +1,14 @@
-
 var settings = {
   width: window.innerWidth,
   height: window.innerHeight,
-  nodeCount: 20,
   radius: 10,
   color: 'white'
 };
 
 var nodes = [];
-var angle;
 
 var getRandAngle = function(){
-  angle = Math.random() * 360;
+  return Math.random() * 360;
   // return Math.sin(angle) * settings.radius;
 };
 
@@ -28,21 +25,19 @@ var svg = d3.select('body').append('svg')
   .append('g');
 
 d3.selectAll('svg.arena').on('mousemove', function(event){
-  // nodes.push({
-    console.log("test");
-  // })
-  // create
   var coord = d3.mouse(this);
-  d3.selectAll('circle')
-    .data(d3.range(settings.nodeCount))
+  var node = { x: coord[0], y: coord[1] };
+  svg.selectAll('circle')
+    .data([node])
     .enter()
     .append('circle')
     .attr('r', settings.radius)
     .attr('fill', settings.color)
-    .attr('cx', function(d) { getRandAngle(); return getRandX(angle); })
-    .attr('cy', function() { return getRandY(angle)})
+    .attr('cx', function(d) { return Math.random() * settings.width; })
+    .attr('cy', function() { return Math.random() * settings.height; })
     .transition()
     .duration(1500)
-    .attr('cx', coord[0])
-    .attr('cy', coord[1]);
+    .delay(function() { return Math.random() * 1000; })
+    .attr('cx', function() { return Math.random() * 10 + coord[0]; })
+    .attr('cy', function() { return Math.random() * 10 + coord[1]; });
 });
