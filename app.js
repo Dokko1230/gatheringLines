@@ -23,7 +23,6 @@ var getRandY = function(angle){
 
 var getRandAngle = function(){
   return Math.random() * 360;
-  // return Math.sin(angle) * settings.rad
 };
 
 var svg = d3.select('#container').append('svg:svg')
